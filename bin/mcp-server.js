@@ -35,7 +35,7 @@ const TOOLS = [
         },
         max_budget: {
           type: 'number',
-          description: 'Maximum cost willing to pay per task (optional)'
+          description: 'Maximum cost willing to pay per task in credits (optional)'
         },
         min_reputation: {
           type: 'number',
@@ -46,6 +46,60 @@ const TOOLS = [
           description: 'Maximum number of agents to return (default 5)'
         }
       }
+    },
+    outputSchema: {
+      type: 'object',
+      required: ['total_found', 'matches'],
+      properties: {
+        total_found: {
+          type: 'number',
+          description: 'Total number of matching AI agents found'
+        },
+        matches: {
+          type: 'array',
+          description: 'List of provider agents matching search criteria',
+          items: {
+            type: 'object',
+            required: ['agent', 'relevance_score', 'match_reasons'],
+            properties: {
+              agent: {
+                type: 'object',
+                description: 'Agent Card specification conforming to ERC-8004',
+                properties: {
+                  agent_id: { type: 'string', description: 'Unique agent identifier' },
+                  name: { type: 'string', description: 'Display name of agent' },
+                  role: { type: 'string', description: 'Agent role (seller, buyer, both)' },
+                  description: { type: 'string', description: 'Detailed description of capabilities' },
+                  price_per_task: { type: 'number', description: 'Base price per task in credits' },
+                  reputation_score: { type: 'number', description: 'Reputation rating from 0.0 to 5.0' },
+                  trust_tier: { type: 'string', description: 'Platform trust tier (T0-T3)' },
+                  tasks_completed: { type: 'number', description: 'Total successfully completed tasks' }
+                }
+              },
+              relevance_score: {
+                type: 'number',
+                description: 'Semantic and heuristic relevance score between 0.0 and 1.0'
+              },
+              match_reasons: {
+                type: 'array',
+                description: 'Explanation of matched skills, tags, or rating factors',
+                items: { type: 'string' }
+              }
+            }
+          }
+        }
+      }
+    },
+    annotations: {
+      readOnly: true,
+      readOnlyHint: true,
+      idempotent: true,
+      idempotentHint: true,
+      destructive: false,
+      destructiveHint: false,
+      openWorld: true,
+      openWorldHint: true,
+      audience: ['user', 'assistant']
     }
   },
   {
@@ -54,6 +108,46 @@ const TOOLS = [
     inputSchema: {
       type: 'object',
       properties: {}
+    },
+    outputSchema: {
+      type: 'object',
+      required: ['count', 'agents'],
+      properties: {
+        count: {
+          type: 'number',
+          description: 'Total count of active registered agents'
+        },
+        agents: {
+          type: 'array',
+          description: 'Active provider and buyer agents registered on marketplace',
+          items: {
+            type: 'object',
+            required: ['agent_id', 'name', 'role', 'price_per_task', 'reputation_score'],
+            properties: {
+              agent_id: { type: 'string', description: 'Unique agent identifier' },
+              name: { type: 'string', description: 'Display name of agent' },
+              role: { type: 'string', description: 'Agent role (seller, buyer, both)' },
+              description: { type: 'string', description: 'Detailed description of agent skills' },
+              price_per_task: { type: 'number', description: 'Base price per task in credits' },
+              reputation_score: { type: 'number', description: 'Reputation score from 0.0 to 5.0' },
+              trust_tier: { type: 'string', description: 'Trust tier (T0-T3)' },
+              tasks_completed: { type: 'number', description: 'Number of completed tasks' },
+              balance: { type: 'number', description: 'Current virtual wallet credit balance' }
+            }
+          }
+        }
+      }
+    },
+    annotations: {
+      readOnly: true,
+      readOnlyHint: true,
+      idempotent: true,
+      idempotentHint: true,
+      destructive: false,
+      destructiveHint: false,
+      openWorld: true,
+      openWorldHint: true,
+      audience: ['user', 'assistant']
     }
   },
   {
@@ -88,6 +182,33 @@ const TOOLS = [
           description: 'Execution deadline in seconds (default 60)'
         }
       }
+    },
+    outputSchema: {
+      type: 'object',
+      required: ['task_id', 'buyer_id', 'objective', 'status', 'agreed_cost', 'escrow_locked'],
+      properties: {
+        task_id: { type: 'string', description: 'Unique task identifier (e.g. "task_...")' },
+        buyer_id: { type: 'string', description: 'Buyer agent ID that commissioned the task' },
+        seller_id: { type: 'string', description: 'Assigned seller agent ID, or null if open bidding' },
+        objective: { type: 'string', description: 'Contractual task objective' },
+        status: { type: 'string', description: 'Task status (PUBLISHED, ASSIGNED, COMPLETED, FAILED)' },
+        agreed_cost: { type: 'number', description: 'Contract cost locked in escrow' },
+        platform_fee: { type: 'number', description: '10% platform take-rate fee' },
+        deadline_seconds: { type: 'number', description: 'Execution deadline in seconds' },
+        escrow_locked: { type: 'boolean', description: 'True if escrow funds are securely locked' },
+        created_at: { type: 'number', description: 'Task creation Unix timestamp' }
+      }
+    },
+    annotations: {
+      readOnly: false,
+      readOnlyHint: false,
+      idempotent: false,
+      idempotentHint: false,
+      destructive: false,
+      destructiveHint: false,
+      openWorld: false,
+      openWorldHint: false,
+      audience: ['user', 'assistant']
     }
   },
   {
@@ -102,6 +223,34 @@ const TOOLS = [
           description: 'Task identifier returned when published (e.g. "task_...")'
         }
       }
+    },
+    outputSchema: {
+      type: 'object',
+      required: ['task_id', 'status', 'escrow_locked'],
+      properties: {
+        task_id: { type: 'string', description: 'Unique task identifier' },
+        buyer_id: { type: 'string', description: 'Buyer agent ID' },
+        seller_id: { type: 'string', description: 'Seller agent ID' },
+        objective: { type: 'string', description: 'Task objective' },
+        status: { type: 'string', description: 'Current status (PUBLISHED, ASSIGNED, COMPLETED, FAILED, DISPUTED)' },
+        agreed_cost: { type: 'number', description: 'Agreed cost in credits' },
+        output_result: { type: 'object', description: 'Deliverable output result produced by worker agent' },
+        seller_notes: { type: 'string', description: 'Execution notes from worker agent' },
+        escrow_locked: { type: 'boolean', description: 'Whether escrow is still locked or released' },
+        created_at: { type: 'number', description: 'Creation timestamp' },
+        completed_at: { type: 'number', description: 'Completion timestamp' }
+      }
+    },
+    annotations: {
+      readOnly: true,
+      readOnlyHint: true,
+      idempotent: true,
+      idempotentHint: true,
+      destructive: false,
+      destructiveHint: false,
+      openWorld: false,
+      openWorldHint: false,
+      audience: ['user', 'assistant']
     }
   }
 ];

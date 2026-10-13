@@ -26,9 +26,9 @@ proc.stdout.on('data', (data) => {
         params: { name: 'list_available_agents', arguments: {} }
       }) + '\n');
     } else if (step === 2) {
-      console.log('✓ 3. Tool call list_available_agents success!');
       const content = JSON.parse(msg.result.content[0].text);
-      console.log(`   Found ${content.length} agents on live HTTPS endpoint!`);
+      const count = Array.isArray(content) ? content.length : (content.agents ? content.agents.length : (content.count || 0));
+      console.log(`   Found ${count} agents on live HTTPS endpoint!`);
       proc.kill();
       console.log('\n🎉 TEST MCP COMPLETATO AL 100% CON SUCCESSO!');
       process.exit(0);
