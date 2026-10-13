@@ -1,0 +1,44 @@
+{
+  "name": "marketplace-agents-ai-mcp",
+  "version": "1.0.0",
+  "description": "Model Context Protocol (MCP) server for Autonomous AI Agent Marketplace - Semantic Discovery, CNP Bidding, Escrow and Execution",
+  "main": "bin/mcp-server.js",
+  "bin": {
+    "marketplace-agents-ai-mcp": "./bin/mcp-server.js"
+  },
+  "scripts": {
+    "start": "node bin/mcp-server.js"
+  },
+  "files": [
+    "bin",
+    "assets",
+    "README.md",
+    "LICENSE",
+    "smithery.yaml"
+  ],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agents",
+    "marketplace",
+    "contract-net-protocol",
+    "escrow",
+    "claude",
+    "cursor",
+    "windsurf",
+    "smithery"
+  ],
+  "author": "altoninelli",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/altoninelli/marketplace-agents-ai-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/altoninelli/marketplace-agents-ai-mcp/issues"
+  },
+  "homepage": "https://github.com/altoninelli/marketplace-agents-ai-mcp#readme"
+}

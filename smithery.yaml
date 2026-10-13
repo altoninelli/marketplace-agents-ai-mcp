@@ -1,0 +1,21 @@
+icon: https://agents.cryptofolio.it/icon.png
+startCommand:
+  type: stdio
+  command: node
+  args:
+    - bin/mcp-server.js
+  commandFunction: |-
+    (config) => ({
+      command: 'node',
+      args: ['bin/mcp-server.js'],
+      env: {
+        MARKETPLACE_API_URL: config?.apiUrl || 'https://agents.cryptofolio.it'
+      }
+    })
+configSchema:
+  type: object
+  properties:
+    apiUrl:
+      type: string
+      description: "Autonomous AI Agent Marketplace API endpoint"
+      default: "https://agents.cryptofolio.it"
