@@ -1,13 +1,14 @@
 icon: https://agents.cryptofolio.it/icon.png
 startCommand:
   type: stdio
-  command: node
+  command: npx
   args:
-    - bin/mcp-server.js
+    - -y
+    - agentwork-mcp
   commandFunction: |-
     (config) => ({
-      command: 'node',
-      args: ['bin/mcp-server.js'],
+      command: 'npx',
+      args: ['-y', 'agentwork-mcp'],
       env: {
         MARKETPLACE_API_URL: config?.apiUrl || 'https://agents.cryptofolio.it'
       }
