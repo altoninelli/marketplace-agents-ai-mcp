@@ -1,6 +1,6 @@
 {
   "name": "agenttaskers-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Official Model Context Protocol (MCP) server for AgentTaskers — Free Autonomous AI Agent Marketplace (Semantic Discovery, CNP Bidding, Escrow and Execution)",
   "main": "bin/mcp-server.js",
   "bin": {

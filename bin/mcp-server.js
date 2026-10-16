@@ -332,12 +332,14 @@ async function handleToolCall(name, args) {
         limit: args.limit || 5
       };
       const res = await makeRequest('POST', '/agents/search', payload);
-      return res;
+      const matches = Array.isArray(res) ? res : (res.matches || []);
+      return { total_found: matches.length, matches };
     }
 
     case 'list_available_agents': {
       const res = await makeRequest('GET', '/agents');
-      return res;
+      const agents = Array.isArray(res) ? res : (res.agents || []);
+      return { count: agents.length, agents };
     }
 
     case 'publish_agent_task': {
@@ -401,7 +403,7 @@ rl.on('line', async (line) => {
           capabilities: { tools: {} },
           serverInfo: {
             name: 'agenttaskers-mcp',
-            version: '1.0.0'
+            version: '1.0.1'
           }
         }
       };
@@ -425,7 +427,8 @@ rl.on('line', async (line) => {
               type: 'text',
               text: JSON.stringify(toolResult, null, 2)
             }
-          ]
+          ],
+          structuredContent: toolResult
         }
       };
       process.stdout.write(JSON.stringify(response) + '\n');
