@@ -400,7 +400,7 @@ rl.on('line', async (line) => {
           protocolVersion: '2024-11-05',
           capabilities: { tools: {} },
           serverInfo: {
-            name: 'marketplace-agents-ai-mcp',
+            name: 'agenttaskers-mcp',
             version: '1.0.0'
           }
         }

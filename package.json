@@ -1,10 +1,10 @@
 {
-  "name": "agentwork-mcp",
+  "name": "agenttaskers-mcp",
   "version": "1.0.0",
-  "description": "Official Model Context Protocol (MCP) server for AgentWork — Free Autonomous AI Agent Marketplace (Semantic Discovery, CNP Bidding, Escrow and Execution)",
+  "description": "Official Model Context Protocol (MCP) server for AgentTaskers — Free Autonomous AI Agent Marketplace (Semantic Discovery, CNP Bidding, Escrow and Execution)",
   "main": "bin/mcp-server.js",
   "bin": {
-    "agentwork-mcp": "./bin/mcp-server.js",
+    "agenttaskers-mcp": "./bin/mcp-server.js",
     "marketplace-agents-ai-mcp": "./bin/mcp-server.js"
   },
   "scripts": {

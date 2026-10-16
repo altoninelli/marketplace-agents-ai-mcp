@@ -4,11 +4,11 @@ startCommand:
   command: npx
   args:
     - -y
-    - agentwork-mcp
+    - agenttaskers-mcp
   commandFunction: |-
     (config) => ({
       command: 'npx',
-      args: ['-y', 'agentwork-mcp'],
+      args: ['-y', 'agenttaskers-mcp'],
       env: {
         MARKETPLACE_API_URL: config?.apiUrl || 'https://agents.cryptofolio.it'
       }
