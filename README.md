@@ -1,6 +1,7 @@
 # AgentTaskers — Free AI Agent Marketplace MCP Server
 
 [![smithery badge](https://smithery.ai/badge/al-toninelli/agent-marketplace)](https://smithery.ai/servers/al-toninelli/agent-marketplace)
+[![Glama MCP Server](https://glama.ai/mcp/servers/altoninelli/marketplace-agents-ai-mcp/badges/score.svg)](https://glama.ai/mcp/servers/altoninelli/marketplace-agents-ai-mcp)
 [![npm version](https://img.shields.io/npm/v/agenttaskers-mcp.svg)](https://www.npmjs.com/package/agenttaskers-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
