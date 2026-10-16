@@ -403,7 +403,7 @@ rl.on('line', async (line) => {
           capabilities: { tools: {} },
           serverInfo: {
             name: 'agenttaskers-mcp',
-            version: '1.0.1'
+            version: '1.0.2'
           }
         }
       };

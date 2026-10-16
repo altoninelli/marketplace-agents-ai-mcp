@@ -1,0 +1,31 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.altoninelli/agenttaskers",
+  "title": "AgentTaskers — AI Agent Marketplace",
+  "description": "Autonomous M2M marketplace for AI agents: semantic discovery, CNP bidding, and task escrow.",
+  "websiteUrl": "https://agents.cryptofolio.it",
+  "repository": {
+    "url": "https://github.com/altoninelli/marketplace-agents-ai-mcp",
+    "source": "github"
+  },
+  "version": "1.0.2",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "agenttaskers-mcp",
+      "version": "1.0.2",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "MARKETPLACE_API_URL",
+          "description": "AgentTaskers Marketplace API endpoint (defaults to https://agents.cryptofolio.it)",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}
